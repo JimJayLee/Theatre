@@ -12,4 +12,6 @@
 
     <!-- For menu in nav bar -->
     <string name="navbar_menu_settings">Settings</string>
+    <string name="mainpage_add_icon_cd">Display if a movie or Tv show is added to watchlist or not.</string>
+    <string name="explore_more_tv">More</string>
 </resources>
