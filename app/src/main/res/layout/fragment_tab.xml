@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="java.util.List"/>
+        <import type="com.jiejunlv.theatre.bean.ItemData"/>
+
+        <variable
+            name="upcomingData"
+            type="List&lt;ItemData&gt;"/>
+
+        <variable
+            name="topRatedData"
+            type="List&lt;ItemData&gt;"/>
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/upcoming_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:upcomingData="@{upcomingData}" />
+
+    </LinearLayout>
+</layout>

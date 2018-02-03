@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Theatre</string>
+
+    <!-- For search interface -->
+    <string name="search_hint">Find Everything You Want</string>
+
+    <!-- Content description for image views -->
+    <string name="mainpage_thumbnail_cd">Display thumbnail of movie or Tv in the main page, usually of a small size.</string>
+    <string name="mainpage_home_icon_cd">A image icon for navigation drawer in the replacement of the original one.</string>
+    <string name="mainpage_back_icon_cd">Back icon which allows user to dismiss the search popup window.</string>
+    <string name="mainpage_clear_icon_cd">Clear icon for clearing all input by user which appears when there is input in edit text view.</string>
+
+    <!-- For menu in nav bar -->
+    <string name="navbar_menu_settings">Settings</string>
+</resources>

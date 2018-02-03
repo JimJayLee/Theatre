@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="userInput"
+            type="String"/>
+
+
+    </data>
+
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:background="@drawable/toolbar_shape"
+        android:layout_height="?attr/actionBarSize">
+
+        <ImageView
+            android:id="@+id/back_main"
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:src="@drawable/ic_action_back"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/mainpage_back_icon_cd" />
+
+        <EditText
+            android:id="@+id/searchbar_et"
+            android:layout_weight="1"
+            android:background="@null"
+            android:text="@={userInput}"
+            android:hint="@string/search_hint"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+
+
+        <ImageView
+            android:visibility="@{userInput.length > 0 ? View.VISIBLE : View.INVISIBLE}"
+            android:id="@+id/clear_all"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_action_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/mainpage_clear_icon_cd" />
+
+    </LinearLayout>
+</layout>
