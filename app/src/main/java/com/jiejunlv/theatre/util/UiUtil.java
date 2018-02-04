@@ -7,7 +7,6 @@ import android.graphics.drawable.Drawable;
 import android.os.IBinder;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
@@ -55,21 +54,33 @@ public class UiUtil {
         view.startAnimation(AnimationUtils.loadAnimation(context,animId));
     }
 
+    // Bc the title is using the params from URL, it has to be clear from the underline between words.
+    public static String textClear(String title){
+        if (title != null) {
+            return upperCaseFirstCharacter(title.replace('_', ' '));
+        }
+        return null;
+    }
+
+    public static String upperCaseFirstCharacter(String str) {
+        char[] ch = str.toCharArray();
+        if (ch[0] >= 'a' && ch[0] <= 'z') {
+            ch[0] = (char) (ch[0] - 32);
+        }
+    return new String(ch);
+    }
+
 
     @BindingAdapter({"bind:imageUrl","bind:error"})
     public static void loadImage(ImageView view, String url, Drawable error){
         Glide.with(view.getContext()).load(UriUtil.completeImgUrl(url)).error(error).into(view);
     }
 
-    @BindingAdapter("bind:upcomingData")
-    public static void setUpcomingData(RecyclerView recyclerView, List<ItemData> data){
+    @BindingAdapter("bind:data")
+    public static void setData(RecyclerView recyclerView, List<ItemData> data){
         setHorizontalRVdata(recyclerView, data);
     }
 
-    @BindingAdapter("bind:topRateData")
-    public static void setTopRatedData(RecyclerView recyclerView, List<ItemData> data){
-        setHorizontalRVdata(recyclerView, data);
-    }
 
     private static void setHorizontalRVdata(RecyclerView recyclerView, List<ItemData> data){
         if (data != null) {

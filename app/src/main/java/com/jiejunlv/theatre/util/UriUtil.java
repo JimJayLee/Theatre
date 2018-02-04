@@ -1,11 +1,18 @@
 package com.jiejunlv.theatre.util;
 
+import android.os.Bundle;
+
 /**
  * Construct necessary url for use.
  * Created by jiejunlv on 3/2/2018.
  */
 
 public class UriUtil {
+
+    private static final String KEY_PAGE = "pageKey";
+    private static final String KEY_TYPE = "typeKey";
+    private static final String KEY_CHANNEL = "channelKey";
+
 
     static final String BASE_TMDB_URL = "https://api.themoviedb.org/3/";
     private static final String BASE_TMDB_IMG_URL = "https://image.tmdb.org/t/p/";
@@ -60,5 +67,28 @@ public class UriUtil {
      */
     public static String completeImgUrl(String url){
         return BASE_TMDB_IMG_URL + IMG_LOGO_SIZE[2] + url;
+    }
+
+    /**
+     *  Hold a bunch of params information, such as data type, requested channel, and page.
+     */
+    public static Bundle bundleWith(String type, String channel, int page){
+        Bundle bundle = new Bundle();
+        bundle.putInt(KEY_PAGE, page);
+        bundle.putString(KEY_TYPE, type);
+        bundle.putString(KEY_CHANNEL, channel);
+        return bundle;
+    }
+
+    public static String getChannelFromBundle(Bundle bundle){
+        return bundle.getString(KEY_CHANNEL);
+    }
+
+    public static int getPageFromBundle(Bundle bundle){
+        return bundle.getInt(KEY_TYPE);
+    }
+
+    public static String getTypeFromBundel(Bundle bundle){
+        return bundle.getString(KEY_TYPE);
     }
 }

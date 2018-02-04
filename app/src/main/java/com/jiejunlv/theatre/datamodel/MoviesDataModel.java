@@ -1,11 +1,15 @@
 package com.jiejunlv.theatre.datamodel;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
-import com.jiejunlv.theatre.bean.ItemData;
 import com.jiejunlv.theatre.util.ApiKey;
 import com.jiejunlv.theatre.util.RetrofitFactory;
+import com.jiejunlv.theatre.util.UriUtil;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -27,37 +31,56 @@ public class MoviesDataModel implements IMoviesDataModel  {
 
     private final static int MOVIE = 0;  // Tab position
     private final static int TV = 1;
+    private final static String MOVIE_PARAMS = "movie";
+    private final static String TV_PARAMS = "tv";
+
+    public String[] movieChannels = {"upcoming", "now_playing", "popular", "top_rated"};
+    public String[] tvChannels = {"on_the_air", "airing_today", "popular", "top_rated"};
+
 
 
     @NonNull
     @Override
-    public Observable<List<ItemData>> getMovies(int type) {
-        return getFromMovieDatabase(type);
+    public Observable<DataListResponse> getMovies(Bundle requestData) {
+        return getFromMovieDatabase(requestData);
     }
 
     @NonNull
-    private Observable<List<ItemData>> getFromMovieDatabase(int type){
-        String dataType;
-        switch (type){
-            case MOVIE:
-                dataType = "movie";
-                break;
-            case TV:
-                dataType = "tv";
-                break;
-            default:
-                dataType = "error";
-        }
+    private Observable<DataListResponse> getFromMovieDatabase(final Bundle requestData){
 
-        Observable<DataListResponse> call = RetrofitFactory.getService().listItems(dataType, "top_rated",1, API_KEY);
+        Observable<DataListResponse> call = RetrofitFactory
+                .getService()
+                .listItems(
+                        UriUtil.getTypeFromBundel(requestData),
+                        UriUtil.getChannelFromBundle(requestData),
+                        1,
+                        API_KEY);
 
 
-        return call.map(new Function<DataListResponse, List<ItemData>>() {
+        return call.map(new Function<DataListResponse, DataListResponse>() {
             @Override
-            public List<ItemData> apply(DataListResponse dataListResponse) throws Exception {
-                return dataListResponse.getItemData();
+            public DataListResponse apply(DataListResponse dataListResponse) throws Exception {
+                dataListResponse.setBundle(requestData);
+                return dataListResponse;
             }
         });
+    }
+
+    @Nullable
+    public List<String> getParamsFromType(int type){
+        List<String> channels = null;
+        // Append the type string to channel
+        switch(type){
+            case MOVIE:
+                channels = new ArrayList<>(Arrays.asList(movieChannels));
+                channels.add(MOVIE_PARAMS);
+                break;
+            case TV:
+                channels =new ArrayList<>(Arrays.asList(tvChannels));
+                channels.add(TV_PARAMS);
+                break;
+        }
+        return channels;
     }
 
 }

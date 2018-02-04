@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.jiejunlv.theatre.view.fragments.BaseFragment;
+import com.jiejunlv.theatre.view.fragments.TabsFragment;
 
 /**
  * Tab fragment adapter.
@@ -26,7 +26,7 @@ public class MainTabAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return BaseFragment.newInstance(position);
+        return TabsFragment.newInstance(position);
     }
 
     @Override

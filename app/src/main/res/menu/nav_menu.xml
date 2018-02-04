@@ -2,16 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group
-        android:id="@+id/main"
+        android:id="@+id/nav_main_group"
         android:checkableBehavior="single">
 
         <item
             android:id="@+id/nav_menu_home"
             android:title="Home"/>
+
     </group>
 
     <group
-        android:id="@+id/user_related">
+        android:id="@+id/nav_user_related_group">
 
         <item
             android:id="@+id/nav_menu_setting"
