@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.jiejunlv.theatre.bean.ItemData;
-import com.jiejunlv.theatre.view.adapter.MoviesAdapter;
+import com.jiejunlv.theatre.view.adapter.ItemsAdapter;
 
 import java.util.List;
 
@@ -85,7 +85,7 @@ public class UiUtil {
     private static void setHorizontalRVdata(RecyclerView recyclerView, List<ItemData> data){
         if (data != null) {
             recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext(), LinearLayoutManager.HORIZONTAL, false));
-            recyclerView.setAdapter(new MoviesAdapter(recyclerView.getContext(), data));
+            recyclerView.setAdapter(new ItemsAdapter(recyclerView.getContext(), data));
         }
     }
 }

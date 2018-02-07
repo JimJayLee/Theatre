@@ -26,7 +26,7 @@ public class MoviesDataModel implements IMoviesDataModel  {
     /**
      * Place your api key here
      */
-    private static final String API_KEY = ApiKey.API_KEY; // You have to replace your own key.
+    private static final String API_KEY = ApiKey.API_KEY; // You have to replace with your own key.
 
 
     private final static int MOVIE = 0;  // Tab position

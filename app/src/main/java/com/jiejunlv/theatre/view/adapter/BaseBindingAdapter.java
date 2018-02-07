@@ -6,6 +6,7 @@ import android.databinding.ViewDataBinding;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
@@ -46,5 +47,6 @@ public abstract class BaseBindingAdapter<M, B extends ViewDataBinding> extends R
 
 
     protected abstract @LayoutRes int getLayoutId(int viewType);
+
     protected abstract void onBindItem(B binding, M item);
 }

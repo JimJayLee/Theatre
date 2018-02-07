@@ -170,8 +170,6 @@ public class TabsFragment extends Fragment {
         return mBinding.getRoot();
     }
 
-
-
     @Override
     public void onDestroy() {
         super.onDestroy();

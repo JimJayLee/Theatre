@@ -33,6 +33,7 @@
                     image:layout_margin="10dp"-->
 
             <TextView
+                android:textStyle="bold"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"
                 android:textSize="16sp"
@@ -43,6 +44,7 @@
                 tools:ignore="TextViewEdits" />
 
             <TextView
+                android:textColor="@color/colorPrimaryDark"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:textSize="16sp"
