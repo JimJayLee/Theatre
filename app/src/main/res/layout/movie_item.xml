@@ -22,7 +22,7 @@
 
 
     <LinearLayout
-        android:onClick="@{(view) -> itemAdapter.checkDetail(view, itemData.id)}"
+        android:onLongClick="@{(view) -> itemAdapter.popDetail(view, itemData)}"
         android:layout_margin="10dp"
         android:orientation="vertical"
         android:layout_width="90dp"
@@ -34,7 +34,7 @@
             android:id="@+id/thumbnail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:imageUrl="@{itemData.poster_path}"
+            app:logoUrl="@{itemData.poster_path}"
             app:error="@{@drawable/error}"
 
             android:contentDescription="@string/mainpage_thumbnail_cd" />

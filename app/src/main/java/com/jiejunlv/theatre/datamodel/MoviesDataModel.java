@@ -34,8 +34,8 @@ public class MoviesDataModel implements IMoviesDataModel  {
     private final static String MOVIE_PARAMS = "movie";
     private final static String TV_PARAMS = "tv";
 
-    public String[] movieChannels = {"upcoming", "now_playing", "popular", "top_rated"};
-    public String[] tvChannels = {"on_the_air", "airing_today", "popular", "top_rated"};
+    private String[] movieChannels = {"upcoming", "now_playing", "popular", "top_rated"};
+    private String[] tvChannels = {"on_the_air", "airing_today", "popular", "top_rated"};
 
 
 

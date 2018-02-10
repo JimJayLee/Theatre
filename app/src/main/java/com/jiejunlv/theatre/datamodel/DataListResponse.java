@@ -2,6 +2,7 @@ package com.jiejunlv.theatre.datamodel;
 
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -50,7 +51,5 @@ public class DataListResponse {
     public Bundle getBundle(){
         return detailBundle;
     }
-
-
 
 }

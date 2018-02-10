@@ -4,8 +4,6 @@ import android.databinding.BaseObservable;
 
 import com.google.gson.annotations.SerializedName;
 
-import retrofit2.http.PUT;
-
 /**
  * A item data means a movie or a Tv show.
  * Created by jiejunlv on 29/1/2018.
@@ -19,28 +17,29 @@ public class ItemData extends BaseObservable {
     private String name;
     private String first_air_date;
 
-
     // For movie
     private String title;
-    private String release_data;
-
+    private String release_date;
 
     private String poster_path;
     private String backdrop_path;
     private String overview;
     private String vote_average;
+
+    @SerializedName("original_language")
     private String language;
-    private String vote_count;
+
+    private float popularity;
     private String id;
 
 
 
-    public String getVote_count() {
-        return vote_count;
+    public float getPopularity() {
+        return popularity;
     }
 
-    public void setVote_count(String vote_count) {
-        this.vote_count = vote_count;
+    public void setPopularity(float popularity) {
+        this.popularity = popularity;
     }
 
     public String getId() {
@@ -107,12 +106,12 @@ public class ItemData extends BaseObservable {
         this.vote_average = vote_average;
     }
 
-    public String getRelease_data() {
-        return release_data;
+    public String getRelease_date() {
+        return release_date;
     }
 
-    public void setRelease_data(String release_data) {
-        this.release_data = release_data;
+    public void setRelease_date(String release_date) {
+        this.release_date = release_date;
     }
 
     public String getLanguage() {
@@ -131,9 +130,9 @@ public class ItemData extends BaseObservable {
                 ", backdrop_path='" + backdrop_path + '\'' +
                 ", overview='" + overview + '\'' +
                 ", vote_average='" + vote_average + '\'' +
-                ", release_data='" + release_data + '\'' +
+                ", release_date='" + release_date + '\'' +
                 ", language='" + language + '\'' +
-                ", vote_count='" + vote_count + '\'' +
+                ", popularity='" + popularity + '\'' +
                 ", id='" + id + '\'' +
                 '}';
     }

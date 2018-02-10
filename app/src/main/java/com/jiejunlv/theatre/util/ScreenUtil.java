@@ -1,6 +1,9 @@
 package com.jiejunlv.theatre.util;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.util.DisplayMetrics;
+import android.view.Display;
 
 /**
  * Provide screen information.
@@ -20,6 +23,17 @@ public class ScreenUtil {
             height = context.getResources().getDimensionPixelSize(resourceId);
         }
         return height;
+    }
+
+    /**
+     * Get screen width and height in pixels
+     * @param context
+     * @return
+     */
+    public static int[] getScreenWidthAndHeight(Context context){
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        return new int[]{metrics.widthPixels, metrics.heightPixels};
     }
 
 

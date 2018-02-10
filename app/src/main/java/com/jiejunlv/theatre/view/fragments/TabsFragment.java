@@ -175,4 +175,6 @@ public class TabsFragment extends Fragment {
         super.onDestroy();
         mCompositeDisposable.clear();
     }
+
+
 }

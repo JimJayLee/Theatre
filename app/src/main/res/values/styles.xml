@@ -14,4 +14,9 @@
         <item name="contentInsetStart">0dp</item>
         <item name="contentInsetStartWithNavigation">0dp</item>
     </style>
+
+    <!-- DetailPopupWindow exit animation -->
+    <style name="popup_detail_fade_out">
+        <item name="android:windowExitAnimation">@anim/popup_detail_fade_out</item>
+    </style>
 </resources>

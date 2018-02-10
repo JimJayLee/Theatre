@@ -65,8 +65,12 @@ public class UriUtil {
     /**
      *  The urls fetched from Internet is not completed, so you have to combine some necessary elements, e.g. base url and image size.
      */
-    public static String completeImgUrl(String url){
-        return BASE_TMDB_IMG_URL + IMG_LOGO_SIZE[2] + url;
+    public static String completeLogoUrl(String url){
+        return BASE_TMDB_IMG_URL + IMG_LOGO_SIZE[4] + url;
+    }
+
+    public static String completeBackdropUrl(String url){
+        return BASE_TMDB_IMG_URL + IMG_BACKDROP_SIZE[1] + url;
     }
 
     /**

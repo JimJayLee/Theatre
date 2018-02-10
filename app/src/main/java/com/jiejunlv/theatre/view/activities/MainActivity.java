@@ -1,21 +1,21 @@
 package com.jiejunlv.theatre.view.activities;
 
-
 import android.databinding.DataBindingUtil;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.PopupWindow;
 
 import com.jiejunlv.theatre.R;
 import com.jiejunlv.theatre.databinding.ActivityMainBinding;
 
 import com.jiejunlv.theatre.util.UiUtil;
-import com.jiejunlv.theatre.view.PopupSearchWindow;
 import com.jiejunlv.theatre.view.adapter.MainTabAdapter;
-
+import com.jiejunlv.theatre.view.views.PopupSearchWindow;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,14 +54,23 @@ public class MainActivity extends AppCompatActivity {
                     final int anchorLoc[] = new int[2];
                     mBinding.toolbar.getLocationOnScreen(anchorLoc);
                     mSearchBar =  PopupSearchWindow
-                            .from(MainActivity.this)
+                            .from(getApplicationContext())
                             .setParentView(view)
                             .setWidthAndHeight(mBinding.toolbar.getWidth(), mBinding.toolbar.getHeight())
                             .setAnchorLocation(anchorLoc)
                             .setFocusable(true)
                             .build();
+
+                    mSearchBar.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                        @Override
+                        public void onDismiss() {
+                            rotateHamburgerIcon();
+                            UiUtil.dimOutside(MainActivity.this, false);
+                        }
+                    });
                 }
                 mSearchBar.show();
+                UiUtil.dimOutside(MainActivity.this, true);
             }
         });
 
@@ -70,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * User dismisses the search popup window, rotate the hamburger icon for user experience somehow.
      */
-    public void rotateHamburgerIcon(){
+    private void rotateHamburgerIcon(){
         UiUtil.showAnimation(this, mBinding.navHome, R.anim.icon_rotate_forward);
     }
 
@@ -82,5 +91,4 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         mSearchBar = null;
     }
-
 }
