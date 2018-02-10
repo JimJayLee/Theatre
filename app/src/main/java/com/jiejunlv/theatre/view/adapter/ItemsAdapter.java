@@ -69,7 +69,7 @@ public class ItemsAdapter extends BaseBindingAdapter<ItemData, MovieItemBinding>
      * @param itemData  Item data.
      */
     public boolean popDetail(View view, ItemData itemData){
-
+        Log.i("Adapter", "The root view is : " + view.getRootView());
         if (mPopupDetail == null) {
             mPopupDetail = PopupDetailWindow.from(view.getContext())
                             .setParentView(view)

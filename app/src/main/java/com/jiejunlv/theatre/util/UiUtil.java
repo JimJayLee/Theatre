@@ -3,9 +3,13 @@ package com.jiejunlv.theatre.util;
 import android.app.Activity;
 import android.content.Context;
 import android.databinding.BindingAdapter;
+
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.IBinder;
@@ -24,8 +28,6 @@ import com.bumptech.glide.Glide;
 import com.jiejunlv.theatre.bean.ItemData;
 import com.jiejunlv.theatre.view.adapter.ItemsAdapter;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.List;
 
 /**
@@ -91,6 +93,47 @@ public class UiUtil {
     }
 
     /**
+     * Adjust a view or drawable 's brightness
+     * @param brightness RGB offset， negative for dim.
+     * @return ColorFilter
+     */
+    public static ColorMatrixColorFilter setBrightness(int brightness){
+        ColorMatrix matrix = new ColorMatrix();
+        matrix.set(new float[]{
+                1, 0, 0, 0,
+                brightness, 0, 1, 0,
+                0, brightness, 0, 0,
+                1, 0, brightness, 0,
+                0, 0, 1, 0});
+        return new ColorMatrixColorFilter(matrix);
+    }
+
+    /**
+     * Blur a bitmap using FastBlur.
+     * @param bkg background bitmap needs blurring.
+     * @param view the view where your bitmap embeds.
+     * @return a blurred bitmap.
+     */
+    public static Bitmap blur(Bitmap bkg, View view) {
+
+        float radius = 4; // the blur radius
+        float scaleFactor = 8; // Quality is not necessary for a blurred bitmap, scaling it down to 1/8 for quick blurring.
+
+        // Because popupWindow's root view calls getWidth()/getHeight() returns < 0, can't figure it out
+        // But the width and height are for sure the screen's width and height.
+        Bitmap overlay = Bitmap.createBitmap(bkg, 0, 0, (int)(bkg.getWidth() / scaleFactor), (int)(bkg.getHeight() / scaleFactor));
+        Canvas canvas = new Canvas(overlay);
+        // We just want canvas draw the whole bitmap, translation is no need.
+        //canvas.translate(-view.getLeft()/scaleFactor, -view.getTop()/scaleFactor);
+        canvas.scale(1 / scaleFactor, 1 / scaleFactor);
+        Paint paint = new Paint();
+        paint.setFlags(Paint.FILTER_BITMAP_FLAG);
+        canvas.drawBitmap(bkg, 0, 0, paint);
+        overlay = FastBlur.doBlur(overlay, (int)radius, true);
+        return overlay;
+    }
+
+    /**
      * A helper method for popup window, dimming the outer space of the window.
      * @param activity Activity is necessary, not context.
      * @param isDim Dim or not.
@@ -105,7 +148,6 @@ public class UiUtil {
             activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         }
         activity.getWindow().setAttributes(lp);
-        activity = null;
     }
 
     @BindingAdapter("bind:backdropUrl")

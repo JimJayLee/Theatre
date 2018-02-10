@@ -56,8 +56,14 @@ public class PopupDetailWindow extends PopupWindow {
         setOutsideTouchable(true);
         setTouchable(true);
         setFocusable(focusable);
-        ColorDrawable drawable = new ColorDrawable(Color.BLACK);
-        drawable.setAlpha(180);
+
+        BitmapDrawable drawable = new BitmapDrawable(
+                mContext.getResources(),
+                UiUtil.blur(ScreenUtil.captureScreen(parent.getRootView()), null));
+
+        // Dim the drawable
+        drawable.setColorFilter(UiUtil.setBrightness(-50));
+
         setBackgroundDrawable(drawable);
 
         // Make the outer space of popup window clickable to exit
