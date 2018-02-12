@@ -36,7 +36,6 @@
             android:layout_height="wrap_content"
             app:logoUrl="@{itemData.poster_path}"
             app:error="@{@drawable/error}"
-
             android:contentDescription="@string/mainpage_thumbnail_cd" />
 
 

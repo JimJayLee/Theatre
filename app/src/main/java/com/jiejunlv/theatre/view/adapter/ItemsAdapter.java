@@ -36,30 +36,8 @@ public class ItemsAdapter extends BaseBindingAdapter<ItemData, MovieItemBinding>
     @Override
     protected void onBindItem(MovieItemBinding binding, ItemData item) {
         binding.setItemData(item);
-        // Bind listener to the root view.
         binding.setItemAdapter(this);
         binding.executePendingBindings();
-
-        binding.getRoot().setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()){
-                    case MotionEvent.ACTION_DOWN:
-                        Log.i("ITEM", "ACTION DOWN");
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        Log.i("ITEM", "ACTION UP");
-                        if (mPopupDetail.isShowing()){
-                            mPopupDetail.dismiss();
-                        }
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        Log.i("ITEM", "ACTION MOVE");
-                        break;
-                }
-                return false;
-            }
-        });
     }
 
     /**
@@ -69,7 +47,6 @@ public class ItemsAdapter extends BaseBindingAdapter<ItemData, MovieItemBinding>
      * @param itemData  Item data.
      */
     public boolean popDetail(View view, ItemData itemData){
-        Log.i("Adapter", "The root view is : " + view.getRootView());
         if (mPopupDetail == null) {
             mPopupDetail = PopupDetailWindow.from(view.getContext())
                             .setParentView(view)
