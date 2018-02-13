@@ -2,20 +2,10 @@ package com.jiejunlv.theatre.view.views;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.PopupWindow;
 
 import com.jiejunlv.theatre.R;
@@ -67,13 +57,6 @@ public class PopupDetailWindow extends PopupWindow {
         setBackgroundDrawable(drawable);
 
         // Make the outer space of popup window clickable to exit
-        mBinding.cardviewPopup.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                return true;
-            }
-        });
-
         mBinding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,8 +104,8 @@ public class PopupDetailWindow extends PopupWindow {
             return this;
         }
 
-        public Builder setFocusable(Boolean focusable){
-            this.focusable = focusable;
+        public Builder setFocusable(){
+            this.focusable = true;
             return this;
         }
 

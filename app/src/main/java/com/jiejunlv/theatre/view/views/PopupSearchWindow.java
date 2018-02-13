@@ -1,26 +1,26 @@
 package com.jiejunlv.theatre.view.views;
 
-import android.app.Activity;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v4.content.LocalBroadcastManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.jiejunlv.theatre.R;
 import com.jiejunlv.theatre.databinding.PopupSearchbarBinding;
 import com.jiejunlv.theatre.util.UiUtil;
+import com.jiejunlv.theatre.viewmodel.SearchViewModel;
 
 /**
  * A popup window view for providing a search interface which shows on the toolbar.
  * Created by jiejunlv on 2/2/2018.
  */
 
-public class PopupSearchWindow extends PopupWindow {
+public class PopupSearchWindow extends PopupWindow implements View.OnClickListener{
 
 
     private View parent;
@@ -28,6 +28,8 @@ public class PopupSearchWindow extends PopupWindow {
     private boolean focusable;
     private Context mContext;
     private PopupSearchbarBinding mBinding;
+    private PopupHistoryWindow mPopupHistory;
+    private SearchViewModel mViewModel;
 
     PopupSearchWindow(Context context, PopupSearchbarBinding binding, View parent, int width, int height, int[] location, boolean focusable) {
         super(binding.getRoot(), width, height, focusable);
@@ -38,23 +40,83 @@ public class PopupSearchWindow extends PopupWindow {
         this.focusable = focusable;
         this.mContext = context;
         setup();
+        setUpHistory(width, height);
     }
 
     private void setup() {
+
         setOutsideTouchable(true);
+        setTouchable(true);
         setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         setFocusable(focusable);
+
+        // Clear button
+        mBinding.clearAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mBinding.setUserInput("");
+            }
+        });
+
+        // Back button
+        mBinding.backMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
+            }
+        });
     }
 
+    private void setUpHistory(int width, int height) {
+        mPopupHistory = PopupHistoryWindow.from(mContext)
+                                .setWidthAndHeight(width, height)
+                                .setParentView(parent)
+                                .setFocusable()
+                                .build();
+
+        mPopupHistory.getBinding().historyTv1.setOnClickListener(this);
+        mPopupHistory.getBinding().historyTv2.setOnClickListener(this);
+        mPopupHistory.getBinding().historyDel1.setOnClickListener(this);
+        mPopupHistory.getBinding().historyDel2.setOnClickListener(this);
+    }
+
+    @Override
+    public void dismiss() {
+        super.dismiss();
+        if (mPopupHistory != null && mPopupHistory.isShowing()){
+            mPopupHistory.dismiss();
+        }
+    }
 
     public void show(){
         showAtLocation(parent, Gravity.TOP|Gravity.START, location[0], location[1]);
         UiUtil.showAnimation(mContext, mBinding.backMain, R.anim.icon_rotate_backward);
-    }
 
+        if (mPopupHistory != null && !mPopupHistory.isShowing()){
+            mPopupHistory.show();
+        }
+    }
 
     public static Builder from(Context context){
         return new Builder(context);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.history_tv1:
+                UiUtil.showToast(view.getContext(), (String) ((TextView) view).getText());
+                break;
+            case R.id.history_tv2:
+                UiUtil.showToast(view.getContext(), "TV2");
+                break;
+            case R.id.history_del1:
+                UiUtil.showToast(view.getContext(), "DEL1");
+                break;
+            case R.id.history_del2:
+                UiUtil.showToast(view.getContext(), "DEL2");
+                break;
+        }
     }
 
 
@@ -88,8 +150,8 @@ public class PopupSearchWindow extends PopupWindow {
             return this;
         }
 
-        public Builder setFocusable(Boolean focusable){
-            this.focusable = focusable;
+        public Builder setFocusable(){
+            this.focusable = true;
             return this;
         }
 

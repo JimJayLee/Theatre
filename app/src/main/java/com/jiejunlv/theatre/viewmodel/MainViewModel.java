@@ -2,7 +2,6 @@ package com.jiejunlv.theatre.viewmodel;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.jiejunlv.theatre.datamodel.DataListResponse;
 import com.jiejunlv.theatre.datamodel.IMoviesDataModel;
@@ -49,11 +48,8 @@ public class MainViewModel {
 
         List<String> channels = moviesDataModel.getParamsFromType(type);
         if (channels != null && channels.size() == 5) {
-            Log.i("InitData", "Channel's size "+ channels.size());
             String dataType = channels.remove(channels.size() - 1);
             for (String channel : channels) {
-                Log.i("InitTabData", "Sending requests");
-                Log.i("InitTabData", "channels: " + channel);
                 replaySubject.onNext(
                         UriUtil.bundleWith(
                                 dataType,

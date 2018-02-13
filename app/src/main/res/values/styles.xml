@@ -19,4 +19,10 @@
     <style name="popup_detail_fade_out">
         <item name="android:windowExitAnimation">@anim/popup_detail_fade_out</item>
     </style>
+
+    <!-- HistoryPopupWindow animation -->
+    <style name="popup_history_pop_anim">
+        <item name="android:windowEnterAnimation">@anim/popup_history_in</item>
+        <item name="android:windowExitAnimation">@anim/popup_history_out</item>
+    </style>
 </resources>

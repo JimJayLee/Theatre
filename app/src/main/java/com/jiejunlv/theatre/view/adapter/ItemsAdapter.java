@@ -1,8 +1,6 @@
 package com.jiejunlv.theatre.view.adapter;
 
 import android.content.Context;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -51,7 +49,7 @@ public class ItemsAdapter extends BaseBindingAdapter<ItemData, MovieItemBinding>
             mPopupDetail = PopupDetailWindow.from(view.getContext())
                             .setParentView(view)
                             .setWidthAndHeight(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
-                            .setFocusable(true)
+                            .setFocusable()
                             .build();
         }
         // Update the data

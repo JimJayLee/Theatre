@@ -20,4 +20,6 @@
     <string name="nav_menu_account">Account</string>
     <string name="nav_menu_watchlist">Watchlist</string>
     <string name="mainpage_backdrop_popup_cd">A image to display a demanding item\'s backdrop</string>
+    <string name="history_icon_popup">History icon</string>
+    <string name="delete_icon_popup">Delete icon</string>
 </resources>
