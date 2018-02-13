@@ -2,7 +2,7 @@
     <string name="app_name">Theatre</string>
 
     <!-- For search interface -->
-    <string name="search_hint">Find Everything You Want</string>
+    <string name="search_hint">Try Something Here</string>
 
     <!-- Content description for image views -->
     <string name="mainpage_thumbnail_cd">Display thumbnail of movie or Tv in the main page, usually of a small size.</string>
