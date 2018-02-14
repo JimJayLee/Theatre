@@ -18,4 +18,8 @@ public interface IMovieDataBaseService {
                                             @Query("page") int page,
                                             @Query("api_key") String apiKey);
 
+    @GET("/search/{media}?lanuage=en-US")
+    Observable<DataListResponse> searchItems(@Path("media") String mediaType,
+                                             @Query("page") int page,
+                                             @Query("api_key") String apiKey);
 }

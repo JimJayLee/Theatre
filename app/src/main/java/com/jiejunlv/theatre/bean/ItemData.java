@@ -32,6 +32,16 @@ public class ItemData extends BaseObservable {
     private float popularity;
     private String id;
 
+    public String getMedia_type() {
+        return media_type;
+    }
+
+    public void setMedia_type(String media_type) {
+        this.media_type = media_type;
+    }
+
+    // For search/multi to classify what type the item is
+    private String media_type;
 
 
     public float getPopularity() {

@@ -1,19 +1,24 @@
 package com.jiejunlv.theatre.view.views;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.jiejunlv.theatre.R;
 import com.jiejunlv.theatre.databinding.PopupSearchbarBinding;
 import com.jiejunlv.theatre.util.UiUtil;
-import com.jiejunlv.theatre.viewmodel.SearchViewModel;
+import com.jiejunlv.theatre.view.activities.SearchActivity;
 
 /**
  * A popup window view for providing a search interface which shows on the toolbar.
@@ -29,7 +34,6 @@ public class PopupSearchWindow extends PopupWindow implements View.OnClickListen
     private Context mContext;
     private PopupSearchbarBinding mBinding;
     private PopupHistoryWindow mPopupHistory;
-    private SearchViewModel mViewModel;
 
     PopupSearchWindow(Context context, PopupSearchbarBinding binding, View parent, int width, int height, int[] location, boolean focusable) {
         super(binding.getRoot(), width, height, focusable);
@@ -40,11 +44,10 @@ public class PopupSearchWindow extends PopupWindow implements View.OnClickListen
         this.focusable = focusable;
         this.mContext = context;
         setup();
-        setUpHistory(width, height);
+        //setUpHistory(width, height);
     }
 
     private void setup() {
-
         setOutsideTouchable(true);
         setTouchable(true);
         setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -65,19 +68,41 @@ public class PopupSearchWindow extends PopupWindow implements View.OnClickListen
                 dismiss();
             }
         });
+
+        // Set up the EditText search action listener
+        mBinding.searchbarEt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                boolean handled = false;
+                if (i == EditorInfo.IME_ACTION_SEARCH && mBinding.getUserInput().length() > 0){
+                    // Make an intent bundled with the query text
+                    Intent intent = SearchActivity.makeIntent(mContext, mBinding.getUserInput());
+
+                    // The TransitionAnimation needs activity reference
+                    if (mContext instanceof Activity){
+                        Activity activity = (Activity) mContext;
+                        mContext.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity, parent, "searchbar").toBundle());
+                    }
+
+                    handled = true;
+                    dismiss();
+                }
+                return handled;
+            }
+        });
     }
 
     private void setUpHistory(int width, int height) {
         mPopupHistory = PopupHistoryWindow.from(mContext)
-                                .setWidthAndHeight(width, height)
+                                .setWidthAndHeight(width, height*2)
                                 .setParentView(parent)
                                 .setFocusable()
                                 .build();
-
         mPopupHistory.getBinding().historyTv1.setOnClickListener(this);
-        mPopupHistory.getBinding().historyTv2.setOnClickListener(this);
+        //mPopupHistory.getBinding().historyTv2.setOnClickListener(this);
         mPopupHistory.getBinding().historyDel1.setOnClickListener(this);
-        mPopupHistory.getBinding().historyDel2.setOnClickListener(this);
+        //mPopupHistory.getBinding().historyDel2.setOnClickListener(this);
+
     }
 
     @Override
@@ -97,6 +122,14 @@ public class PopupSearchWindow extends PopupWindow implements View.OnClickListen
         }
     }
 
+    /**
+     * This is for users' continuous experience in case user pops up a search bar with no text in the bar.
+     * @param text The last query text.
+     */
+    public void setEtText(String text){
+        mBinding.setUserInput(text);
+    }
+
     public static Builder from(Context context){
         return new Builder(context);
     }
@@ -107,15 +140,15 @@ public class PopupSearchWindow extends PopupWindow implements View.OnClickListen
             case R.id.history_tv1:
                 UiUtil.showToast(view.getContext(), (String) ((TextView) view).getText());
                 break;
-            case R.id.history_tv2:
-                UiUtil.showToast(view.getContext(), "TV2");
-                break;
+            //case R.id.history_tv2:
+            //    UiUtil.showToast(view.getContext(), "TV2");
+            //    break;
             case R.id.history_del1:
                 UiUtil.showToast(view.getContext(), "DEL1");
                 break;
-            case R.id.history_del2:
-                UiUtil.showToast(view.getContext(), "DEL2");
-                break;
+            //case R.id.history_del2:
+             //   UiUtil.showToast(view.getContext(), "DEL2");
+              //  break;
         }
     }
 

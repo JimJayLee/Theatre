@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
         <import type="android.view.View"/>
-        <import type="com.jiejunlv.theatre.bean.HistoryItem"/>
 
         <variable
-            name="history"
-            type="HistoryItem"/>
+            name="historyItem1"
+            type="String"/>
+
+        <variable
+            name="historyItem2"
+            type="String"/>
 
     </data>
 
     <!-- Two history items at most -->
     <LinearLayout
+        android:visibility="@{historyItem1 == null ? View.GONE : View.VISIBLE}"
         android:background="@drawable/toolbar_shape"
-        android:visibility="@{history.searchText1 != null ? View.VISIBLE : View.GONE}"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -22,7 +26,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="?attr/actionBarSize">
 
             <ImageView
                 android:padding="10dp"
@@ -36,7 +40,7 @@
                 android:gravity="center_vertical"
                 android:textSize="18sp"
                 android:layout_weight="1"
-                android:text="@{history.searchText1}"
+                android:text="@{historyItem1}"
                 android:layout_width="0dp"
                 android:layout_height="match_parent" />
 
@@ -50,32 +54,33 @@
         </LinearLayout>
 
         <LinearLayout
-            android:visibility="@{history.searchText2 != null ? View.VISIBLE : View.GONE}"
+            android:visibility="@{historyItem2 == null ? View.GONE : View.VISIBLE}"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="?attr/actionBarSize">
 
             <ImageView
-                android:contentDescription="@string/history_icon_popup"
                 android:padding="10dp"
                 android:src="@drawable/ic_action_history"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/history_icon_popup" />
 
             <TextView
-                android:id="@+id/history_tv2"
+                android:gravity="center_vertical"
+                android:textSize="18sp"
                 android:layout_weight="1"
-                android:text="@{history.searchText2}"
+                android:text="@{historyItem2}"
                 android:layout_width="0dp"
                 android:layout_height="match_parent" />
 
             <ImageView
                 android:contentDescription="@string/delete_icon_popup"
-                android:id="@+id/history_del2"
                 android:padding="10dp"
                 android:src="@drawable/ic_action_clear"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent" />
         </LinearLayout>
+
     </LinearLayout>
 </layout>

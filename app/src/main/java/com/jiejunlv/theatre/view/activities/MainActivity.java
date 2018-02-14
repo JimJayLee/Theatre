@@ -1,5 +1,7 @@
 package com.jiejunlv.theatre.view.activities;
 
+import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 
 import android.support.v7.app.AppCompatActivity;
@@ -53,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                     final int anchorLoc[] = new int[2];
                     mBinding.toolbar.getLocationOnScreen(anchorLoc);
                     mSearchBar =  PopupSearchWindow
-                            .from(getApplicationContext())
+                            .from(MainActivity.this)
                             .setParentView(mBinding.toolbar)
                             .setWidthAndHeight(mBinding.toolbar.getWidth(), mBinding.toolbar.getHeight())
                             .setAnchorLocation(anchorLoc)

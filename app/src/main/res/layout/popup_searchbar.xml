@@ -12,6 +12,7 @@
     </data>
 
     <LinearLayout
+        android:id="@+id/toolbar_popup"
         android:background="@drawable/toolbar_shape"
         android:orientation="horizontal"
         android:layout_width="match_parent"

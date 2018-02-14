@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.PopupWindow;
 
 import com.jiejunlv.theatre.R;
-import com.jiejunlv.theatre.bean.HistoryItem;
 import com.jiejunlv.theatre.databinding.PopupHistoryBinding;
 
 /**
@@ -21,13 +20,14 @@ public class PopupHistoryWindow extends PopupWindow {
 
     private View parent;
     private PopupHistoryBinding mBinding;
+    private Context mContext;
 
     PopupHistoryWindow(Context context, PopupHistoryBinding binding, View parent, int width, int height, boolean focusable) {
         super(binding.getRoot(), width, height, focusable);
 
         this.parent = parent;
         mBinding = binding;
-
+        mContext = context;
         setUp();
     }
 
@@ -37,11 +37,6 @@ public class PopupHistoryWindow extends PopupWindow {
         setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         setFocusable(false);
         setAnimationStyle(R.style.popup_history_pop_anim);
-
-        HistoryItem item = new HistoryItem();
-        item.add("text");
-        mBinding.setHistory(item);
-
     }
 
     public void show(){

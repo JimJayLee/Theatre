@@ -1,9 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.jiejunlv.theatre.view.activities.SearchActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-</android.support.constraint.ConstraintLayout>
+    <data>
+        <variable
+            name="queryText"
+            type="String"/>
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        tools:context="com.jiejunlv.theatre.view.activities.SearchActivity">
+
+        <android.support.v7.widget.Toolbar
+            android:layout_margin="10dp"
+            android:id="@+id/toolbar_search"
+            style="@style/Toolbar.BaseStyle"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/toolbar_shape"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+
+
+            <ImageView
+                android:id="@+id/back_search"
+                android:padding="10dp"
+                android:src="@drawable/ic_action_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/back_icon_in_search_activity" />
+
+            <TextView
+                android:gravity="center_vertical"
+                android:id="@+id/search_text"
+                android:textSize="18sp"
+                android:text="@{queryText}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+        </android.support.v7.widget.Toolbar>
+
+        <FrameLayout
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:id="@+id/search_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#fefefe">
+        </FrameLayout>
+
+    </LinearLayout>
+</layout>
