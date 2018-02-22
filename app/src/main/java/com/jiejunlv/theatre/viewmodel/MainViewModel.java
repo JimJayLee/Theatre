@@ -1,12 +1,12 @@
 package com.jiejunlv.theatre.viewmodel;
 
-import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
+import com.jiejunlv.theatre.bean.DetailBean;
+import com.jiejunlv.theatre.bean.ParamsBean;
 import com.jiejunlv.theatre.datamodel.DataListResponse;
 import com.jiejunlv.theatre.datamodel.IMoviesDataModel;
-import com.jiejunlv.theatre.datamodel.MoviesDataModel;
-import com.jiejunlv.theatre.util.UriUtil;
 
 import java.util.List;
 
@@ -25,19 +25,19 @@ public class MainViewModel {
     @NonNull
     private final IMoviesDataModel moviesDataModel;
 
-    private final ReplaySubject<Bundle> replaySubject = ReplaySubject.create();
+    private final ReplaySubject<ParamsBean> replaySubject = ReplaySubject.create();
 
-    public MainViewModel() {
-        this.moviesDataModel = new MoviesDataModel();
+    public MainViewModel(@NonNull IMoviesDataModel model) {
+        this.moviesDataModel = model;
     }
 
     @NonNull
     public Observable<DataListResponse> getMovieData(){
         return replaySubject
                 .observeOn(Schedulers.io())
-                .flatMap(new Function<Bundle, Observable<DataListResponse>>() {
+                .flatMap(new Function<ParamsBean, Observable<DataListResponse>>() {
                     @Override
-                    public Observable<DataListResponse> apply(Bundle requestData) throws Exception {
+                    public Observable<DataListResponse> apply(ParamsBean requestData) throws Exception {
                         return moviesDataModel.getMovies(requestData);
                     }
                 });
@@ -50,16 +50,47 @@ public class MainViewModel {
         if (channels != null && channels.size() == 5) {
             String dataType = channels.remove(channels.size() - 1);
             for (String channel : channels) {
+                ParamsBean paramsBean = new ParamsBean();
+                paramsBean.setType(dataType);
+                paramsBean.setChannel(channel);
+                paramsBean.setPage(1);
                 replaySubject.onNext(
-                        UriUtil.bundleWith(
-                                dataType,
-                                channel,
-                                1));
+                        paramsBean);
             }
         }
-
     }
 
+    @NonNull
+    public Observable<DataListResponse> makeSearchQuery(){
+        Log.i("MainView", "MAKE QUERY");
+        return replaySubject
+                .observeOn(Schedulers.io())
+                .flatMap(new Function<ParamsBean, Observable<DataListResponse>>() {
+                    @Override
+                    public Observable<DataListResponse> apply(ParamsBean paramsBean) throws Exception {
+                        return moviesDataModel.searchQuery(paramsBean);
+                    }
+                });
+    }
+
+    public void searchQuery(ParamsBean paramsBean){
+        replaySubject.onNext(paramsBean);
+    }
+
+    public Observable<DetailBean> getDetail(){
+        return replaySubject
+                .observeOn(Schedulers.io())
+                .flatMap(new Function<ParamsBean, Observable<DetailBean>>() {
+                    @Override
+                    public Observable<DetailBean> apply(ParamsBean paramsBean) throws Exception {
+                        return moviesDataModel.getDetail(paramsBean);
+                    }
+                });
+    }
+
+    public void detailQuery(ParamsBean paramsBean){
+        replaySubject.onNext(paramsBean);
+    }
 }
 
 

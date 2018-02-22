@@ -1,7 +1,5 @@
 package com.jiejunlv.theatre.bean;
 
-import android.databinding.BaseObservable;
-
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -9,16 +7,18 @@ import com.google.gson.annotations.SerializedName;
  * Created by jiejunlv on 29/1/2018.
  */
 
-public class ItemData extends BaseObservable {
+public class ItemData {
 
 
 
     // For TV
     private String name;
+    private String original_name;
     private String first_air_date;
 
     // For movie
     private String title;
+    private String original_title;
     private String release_date;
 
     private String poster_path;
@@ -145,5 +145,21 @@ public class ItemData extends BaseObservable {
                 ", popularity='" + popularity + '\'' +
                 ", id='" + id + '\'' +
                 '}';
+    }
+
+    public String getOriginal_name() {
+        return original_name;
+    }
+
+    public void setOriginal_name(String original_name) {
+        this.original_name = original_name;
+    }
+
+    public String getOriginal_title() {
+        return original_title;
+    }
+
+    public void setOriginal_title(String original_title) {
+        this.original_title = original_title;
     }
 }

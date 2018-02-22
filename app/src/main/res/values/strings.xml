@@ -23,4 +23,5 @@
     <string name="history_icon_popup">History icon</string>
     <string name="delete_icon_popup">Delete icon</string>
     <string name="back_icon_in_search_activity">Back icon in search activity.</string>
+    <string name="search_poster_cd">search_poster_cd</string>
 </resources>

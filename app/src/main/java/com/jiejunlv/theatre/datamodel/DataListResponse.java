@@ -1,13 +1,11 @@
 package com.jiejunlv.theatre.datamodel;
 
 
-import android.os.Bundle;
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import com.jiejunlv.theatre.bean.ItemData;
+import com.jiejunlv.theatre.bean.ParamsBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,12 +24,12 @@ public class DataListResponse {
     private List<ItemData> itemData;
 
     // Bundle of holding information about the query detail.
-    private Bundle detailBundle;
+    private ParamsBean params;
 
 
     public DataListResponse() {
         this.itemData = new ArrayList<>();
-        this.detailBundle = new Bundle();
+        this.params = new ParamsBean();
     }
 
     public static DataListResponse parseJSON(String response){
@@ -44,12 +42,18 @@ public class DataListResponse {
         return itemData;
     }
 
-    public void setBundle(Bundle bundle){
-        this.detailBundle = bundle;
+    public void setParams(ParamsBean params){
+        this.params = params;
     }
 
-    public Bundle getBundle(){
-        return detailBundle;
+    public ParamsBean getParams(){
+        return params;
+    }
+
+    public void setMediaType(String mediaType){
+        for (ItemData item : itemData){
+            item.setMedia_type(mediaType);
+        }
     }
 
 }

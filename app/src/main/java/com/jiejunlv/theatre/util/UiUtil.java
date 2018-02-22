@@ -16,6 +16,7 @@ import android.os.IBinder;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
@@ -25,9 +26,12 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.jiejunlv.theatre.CustomApplication;
 import com.jiejunlv.theatre.bean.ItemData;
 import com.jiejunlv.theatre.view.adapter.ItemsAdapter;
+import com.jiejunlv.theatre.view.adapter.QuerySearchAdapter;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -72,7 +76,7 @@ public class UiUtil {
         return null;
     }
 
-    public static String upperCaseFirstCharacter(String str) {
+    private static String upperCaseFirstCharacter(String str) {
         char[] ch = str.toCharArray();
         if (ch[0] >= 'a' && ch[0] <= 'z') {
             ch[0] = (char) (ch[0] - 32);
@@ -81,15 +85,8 @@ public class UiUtil {
     }
 
     public static String completeLanguage(String code){
-        switch (code){
-            case "en" :
-                return "English";
-            case "ja" :
-                return "Japanese";
-            case "kr":
-                return "Korea";
-        }
-        return null;
+        HashMap<String, String> languageMap = CustomApplication.getApplicationInstance().getLanguageMap();
+        return !languageMap.isEmpty() ? languageMap.get(code) : upperCaseFirstCharacter(code);
     }
 
     /**
@@ -162,14 +159,18 @@ public class UiUtil {
 
     @BindingAdapter("bind:data")
     public static void setData(RecyclerView recyclerView, List<ItemData> data){
-        setHorizontalRVdata(recyclerView, data);
-    }
-
-
-    private static void setHorizontalRVdata(RecyclerView recyclerView, List<ItemData> data){
         if (data != null) {
             recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext(), LinearLayoutManager.HORIZONTAL, false));
             recyclerView.setAdapter(new ItemsAdapter(recyclerView.getContext(), data));
+    }}
+
+    @BindingAdapter("bind:searchData")
+    public static void setSearchData(RecyclerView recyclerView, List<ItemData> data){
+        if (data != null){
+            recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext(), LinearLayoutManager.VERTICAL, false));
+            recyclerView.setAdapter(new QuerySearchAdapter(recyclerView.getContext(), data));
         }
     }
+
+
 }

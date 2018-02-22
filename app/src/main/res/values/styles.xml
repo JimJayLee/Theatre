@@ -8,6 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="DetailActivityTheme" parent="AppTheme"/>
+
 
     <!-- Toolbar style -->
     <style name="Toolbar.BaseStyle" parent="Base.Widget.AppCompat.Toolbar">

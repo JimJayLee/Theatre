@@ -2,6 +2,8 @@ package com.jiejunlv.theatre.util;
 
 import android.os.Bundle;
 
+import com.jiejunlv.theatre.bean.ParamsBean;
+
 /**
  * Construct necessary url for use.
  * Created by jiejunlv on 3/2/2018.
@@ -9,10 +11,7 @@ import android.os.Bundle;
 
 public class UriUtil {
 
-    private static final String KEY_PAGE = "pageKey";
-    private static final String KEY_TYPE = "typeKey";
-    private static final String KEY_CHANNEL = "channelKey";
-
+    private static final String KEY_PARAMS_BUNDLE = "keyParamsBundle";
 
     static final String BASE_TMDB_URL = "https://api.themoviedb.org/3/";
     private static final String BASE_TMDB_IMG_URL = "https://image.tmdb.org/t/p/";
@@ -76,23 +75,13 @@ public class UriUtil {
     /**
      *  Hold a bunch of params information, such as data type, requested channel, and page.
      */
-    public static Bundle bundleWith(String type, String channel, int page){
+    public static Bundle bundleWith(ParamsBean paramsBean){
         Bundle bundle = new Bundle();
-        bundle.putInt(KEY_PAGE, page);
-        bundle.putString(KEY_TYPE, type);
-        bundle.putString(KEY_CHANNEL, channel);
+        bundle.putParcelable(KEY_PARAMS_BUNDLE, paramsBean);
         return bundle;
     }
 
-    public static String getChannelFromBundle(Bundle bundle){
-        return bundle.getString(KEY_CHANNEL);
-    }
-
-    public static int getPageFromBundle(Bundle bundle){
-        return bundle.getInt(KEY_TYPE);
-    }
-
-    public static String getTypeFromBundel(Bundle bundle){
-        return bundle.getString(KEY_TYPE);
+    public static ParamsBean getParamsFromBundle(Bundle bundle){
+        return bundle.getParcelable(KEY_PARAMS_BUNDLE);
     }
 }

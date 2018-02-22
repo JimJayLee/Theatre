@@ -7,6 +7,7 @@ import android.view.WindowManager;
 import com.jiejunlv.theatre.R;
 import com.jiejunlv.theatre.bean.ItemData;
 import com.jiejunlv.theatre.databinding.MovieItemBinding;
+import com.jiejunlv.theatre.view.activities.DetailActivity;
 import com.jiejunlv.theatre.view.views.PopupDetailWindow;
 
 
@@ -59,5 +60,9 @@ public class ItemsAdapter extends BaseBindingAdapter<ItemData, MovieItemBinding>
             mPopupDetail.show();
         }
         return true;
+    }
+
+    public void openDetail(View view, String id, String mediaType){
+        view.getContext().startActivity(DetailActivity.makeIntent(view.getContext(), id, mediaType));
     }
 }

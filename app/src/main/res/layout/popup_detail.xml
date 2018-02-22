@@ -7,6 +7,7 @@
         <import type="com.jiejunlv.theatre.bean.ItemData"/>
         <import type="android.graphics.drawable.Drawable"/>
         <import type="android.view.View"/>
+        <import type="com.jiejunlv.theatre.util.UiUtil"/>
 
         <variable
             name="itemData"
@@ -56,7 +57,7 @@
 
                     <TextView
                         android:layout_marginTop="5dp"
-                        android:text="@{itemData.language}"
+                        android:text="@{UiUtil.completeLanguage(itemData.language) ?? itemData.language}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 

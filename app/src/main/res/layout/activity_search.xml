@@ -4,6 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="java.util.List"/>
+        <import type="com.jiejunlv.theatre.bean.ItemData"/>
+        <import type="android.view.View"/>
+
+        <variable
+            name="data"
+            type="List&lt;ItemData&gt;"/>
+
         <variable
             name="queryText"
             type="String"/>
@@ -46,12 +54,22 @@
         </android.support.v7.widget.Toolbar>
 
         <FrameLayout
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
             android:id="@+id/search_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#fefefe">
+
+            <ProgressBar
+                android:visibility="@{data == null ? View.VISIBLE : View.GONE}"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:searchData="@{data}"/>
         </FrameLayout>
 
     </LinearLayout>

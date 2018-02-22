@@ -4,15 +4,17 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.jiejunlv.theatre.CustomApplication;
 import com.jiejunlv.theatre.R;
 import com.jiejunlv.theatre.bean.ItemData;
+import com.jiejunlv.theatre.bean.ParamsBean;
 import com.jiejunlv.theatre.databinding.FragmentTabBinding;
 import com.jiejunlv.theatre.datamodel.DataListResponse;
+import com.jiejunlv.theatre.datamodel.MoviesDataModel;
 import com.jiejunlv.theatre.util.UiUtil;
 import com.jiejunlv.theatre.util.UriUtil;
 import com.jiejunlv.theatre.viewmodel.MainViewModel;
@@ -67,8 +69,7 @@ public class TabsFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mCompositeDisposable = new CompositeDisposable();
-        mViewModel = new MainViewModel();
-
+        mViewModel = getViewModel();
     }
 
     private void bind() {
@@ -82,7 +83,7 @@ public class TabsFragment extends Fragment {
                                     @Override
                                     public void accept(DataListResponse dataListResponse) throws Exception {
                                         setData(dataListResponse.getItemData(),
-                                                dataListResponse.getBundle());
+                                                dataListResponse.getParams());
                                     }
                                 },
                                 new Consumer<Throwable>() {
@@ -92,16 +93,18 @@ public class TabsFragment extends Fragment {
                                         UiUtil.showToast(getContext(), throwable.getMessage());
                                     }
                                 }));
+
     }
 
-    private void setData(List<ItemData> itemData, Bundle bundle) {
+    private void setData(List<ItemData> itemData, ParamsBean params) {
         //mBinding.setUpcomingData(itemData);
-        String type = UriUtil.getTypeFromBundel(bundle);
-        String channel = UriUtil.getChannelFromBundle(bundle);
-
+        String type = params.getType();
+        String channel = params.getChannel();
+        // Bind the media type to the data as a token
         switch (type){
             case MOVIE_PARAMS:
                 setMovieData(itemData,channel);
+
                 break;
             case TV_PARAMS:
                 setTvData(itemData, channel);
@@ -176,5 +179,8 @@ public class TabsFragment extends Fragment {
         mCompositeDisposable.clear();
     }
 
+    private MainViewModel getViewModel(){
+        return ((CustomApplication) getActivity().getApplication()).getViewModel();
+    }
 
 }

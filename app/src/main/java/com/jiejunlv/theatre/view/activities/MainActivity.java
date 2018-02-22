@@ -1,7 +1,5 @@
 package com.jiejunlv.theatre.view.activities;
 
-import android.content.Context;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 
 import android.support.v7.app.AppCompatActivity;
@@ -29,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         setupViews();
-
     }
 
     private void setupViews(){
@@ -38,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         mBinding.navHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mBinding.drawerLayoutMain.openDrawer(Gravity.END);
+                mBinding.drawerLayoutMain.openDrawer(Gravity.START);
             }
         });
 
@@ -71,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
                     });
                 }
                 mSearchBar.show();
+
                 UiUtil.dimOutside(MainActivity.this, true);
             }
         });
