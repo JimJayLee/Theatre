@@ -6,3 +6,6 @@ Note that this app is using the Movie database API, and you have to place your o
 
 ## Screenshots
 <img width="250" height="450" src="https://github.com/JimJayLee/Theatre/blob/master/Screenshots/Screenshot1.jpeg"/>
+<img width="250" height="450" src="https://github.com/JimJayLee/Theatre/blob/master/Screenshots/Screenshot2.jpeg"/>
+<img width="250" height="450" src="https://github.com/JimJayLee/Theatre/blob/master/Screenshots/Screenshot3.jpeg"/>
+<img width="250" height="450" src="https://github.com/JimJayLee/Theatre/blob/master/Screenshots/Screenshot4.jpeg"/>
