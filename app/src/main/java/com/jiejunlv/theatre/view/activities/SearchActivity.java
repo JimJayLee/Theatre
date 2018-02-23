@@ -113,16 +113,23 @@ public class SearchActivity extends AppCompatActivity {
                 UiUtil.dimOutside(SearchActivity.this, true);
             }
         });
+
+        mBinding.backSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     /**
      * Extract the query string from intent and perform a search action.
-     * @param intent
      */
     private void handleIntent(Intent intent){
         String query = intent.getStringExtra(QUERY_TEXT);
         mBinding.setQueryText(query);
 
+        Log.i("SearchActivity", "Search " + query);
         // Perform a search action
         ParamsBean params = new ParamsBean();
         params.setQueryText(query);

@@ -76,7 +76,7 @@ public class UiUtil {
         return null;
     }
 
-    private static String upperCaseFirstCharacter(String str) {
+    public static String upperCaseFirstCharacter(String str) {
         char[] ch = str.toCharArray();
         if (ch[0] >= 'a' && ch[0] <= 'z') {
             ch[0] = (char) (ch[0] - 32);
@@ -86,7 +86,7 @@ public class UiUtil {
 
     public static String completeLanguage(String code){
         HashMap<String, String> languageMap = CustomApplication.getApplicationInstance().getLanguageMap();
-        return !languageMap.isEmpty() ? languageMap.get(code) : upperCaseFirstCharacter(code);
+        return languageMap != null ? languageMap.get(code) : upperCaseFirstCharacter(code);
     }
 
     /**
@@ -152,9 +152,9 @@ public class UiUtil {
         Glide.with(v.getContext()).load(UriUtil.completeBackdropUrl(url)).into(v);
     }
 
-    @BindingAdapter({"bind:logoUrl","bind:error"})
-    public static void loadLogo(ImageView view, String url, Drawable error){
-        Glide.with(view.getContext()).load(UriUtil.completeLogoUrl(url)).error(error).into(view);
+    @BindingAdapter({"bind:logoUrl"})
+    public static void loadLogo(ImageView view, String url){
+        Glide.with(view.getContext()).load(UriUtil.completeLogoUrl(url)).into(view);
     }
 
     @BindingAdapter("bind:data")

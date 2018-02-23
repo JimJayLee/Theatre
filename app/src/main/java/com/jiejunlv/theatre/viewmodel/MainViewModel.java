@@ -74,6 +74,7 @@ public class MainViewModel {
     }
 
     public void searchQuery(ParamsBean paramsBean){
+        Log.i("MainView", "Search QUERY");
         replaySubject.onNext(paramsBean);
     }
 
