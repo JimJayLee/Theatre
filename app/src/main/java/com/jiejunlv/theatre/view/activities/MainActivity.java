@@ -19,7 +19,6 @@ import com.jiejunlv.theatre.view.views.PopupSearchWindow;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding mBinding;
-    private PopupSearchWindow mSearchBar;
 
 
     @Override
@@ -47,29 +46,28 @@ public class MainActivity extends AppCompatActivity {
         mBinding.logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if (mSearchBar == null){
-                    final int anchorLoc[] = new int[2];
-                    mBinding.toolbar.getLocationOnScreen(anchorLoc);
-                    mSearchBar =  PopupSearchWindow
-                            .from(MainActivity.this)
-                            .setParentView(mBinding.toolbar)
-                            .setWidthAndHeight(mBinding.toolbar.getWidth(), mBinding.toolbar.getHeight())
-                            .setAnchorLocation(anchorLoc)
-                            .setFocusable()
-                            .build();
-
-                    mSearchBar.setOnDismissListener(new PopupWindow.OnDismissListener() {
-                        @Override
-                        public void onDismiss() {
-                            rotateHamburgerIcon();
-                            UiUtil.dimOutside(MainActivity.this, false);
-                        }
-                    });
+                // If the view is not showing completely, do not show the search window.
+                if (UiUtil.isCover(view)){
+                    return;
                 }
-                mSearchBar.show();
 
-                UiUtil.dimOutside(MainActivity.this, true);
+                final int anchorLoc[] = new int[2];
+                mBinding.toolbar.getLocationOnScreen(anchorLoc);
+                PopupSearchWindow searchBar =  PopupSearchWindow
+                        .from(MainActivity.this)
+                        .setParentView(mBinding.toolbar)
+                        .setWidthAndHeight(mBinding.toolbar.getWidth(), mBinding.toolbar.getHeight())
+                        .setAnchorLocation(anchorLoc)
+                        .setFocusable()
+                        .build();
+
+                searchBar.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                    @Override
+                    public void onDismiss() {
+                        rotateHamburgerIcon();
+                    }
+                });
+                searchBar.show();
             }
         });
 
@@ -80,14 +78,5 @@ public class MainActivity extends AppCompatActivity {
      */
     private void rotateHamburgerIcon(){
         UiUtil.showAnimation(this, mBinding.navHome, R.anim.icon_rotate_forward);
-    }
-
-    /**
-     * Destroy the search bar instance.
-     */
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mSearchBar = null;
     }
 }

@@ -111,6 +111,10 @@ public class PopupSearchWindow extends PopupWindow implements View.OnClickListen
         if (mPopupHistory != null && mPopupHistory.isShowing()){
             mPopupHistory.dismiss();
         }
+        if (mContext instanceof Activity){
+            Activity activity = (Activity) mContext;
+            UiUtil.dimOutside(activity, false);
+        }
     }
 
     public void show(){
@@ -119,6 +123,11 @@ public class PopupSearchWindow extends PopupWindow implements View.OnClickListen
 
         if (mPopupHistory != null && !mPopupHistory.isShowing()){
             mPopupHistory.show();
+        }
+
+        if (mContext instanceof Activity){
+            Activity activity = (Activity) mContext;
+            UiUtil.dimOutside(activity, true);
         }
     }
 

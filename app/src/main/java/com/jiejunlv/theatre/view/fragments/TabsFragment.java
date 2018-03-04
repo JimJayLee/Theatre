@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +15,7 @@ import com.jiejunlv.theatre.bean.ItemData;
 import com.jiejunlv.theatre.bean.ParamsBean;
 import com.jiejunlv.theatre.databinding.FragmentTabBinding;
 import com.jiejunlv.theatre.datamodel.DataListResponse;
-import com.jiejunlv.theatre.datamodel.MoviesDataModel;
 import com.jiejunlv.theatre.util.UiUtil;
-import com.jiejunlv.theatre.util.UriUtil;
 import com.jiejunlv.theatre.viewmodel.MainViewModel;
 
 
@@ -56,6 +55,12 @@ public class TabsFragment extends Fragment {
     private FragmentTabBinding mBinding;
     private MainViewModel mViewModel;
 
+    // Views is ready or not
+    private boolean isViewsCreated = false;
+
+    // Is data ready
+    private boolean isLoaded;
+
 
     public static TabsFragment newInstance(int type){
         Bundle args = new Bundle();
@@ -63,6 +68,15 @@ public class TabsFragment extends Fragment {
         TabsFragment fragment = new TabsFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && isViewsCreated && !isLoaded){
+            isLoaded = true;
+            loadData();
+        }
     }
 
     @Override
@@ -165,12 +179,24 @@ public class TabsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_tab, container, false);
-
-        int type = getArguments().getInt(ARG_TAB_TYPE);
-        bind();
-        mViewModel.initTabData(type);
-
+        isViewsCreated = true;
         return mBinding.getRoot();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        bind();
+        Log.i("TabsFragment", ""+getUserVisibleHint());
+        if (getUserVisibleHint()){
+            isLoaded = true;
+            loadData();
+        }
+    }
+
+    private void loadData(){
+        int type = getArguments().getInt(ARG_TAB_TYPE);
+        mViewModel.initTabData(type);
     }
 
     @Override

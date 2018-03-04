@@ -9,6 +9,7 @@ import android.graphics.Canvas;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -87,6 +88,23 @@ public class UiUtil {
     public static String completeLanguage(String code){
         HashMap<String, String> languageMap = CustomApplication.getApplicationInstance().getLanguageMap();
         return languageMap != null ? languageMap.get(code) : upperCaseFirstCharacter(code);
+    }
+
+    /**
+     * Check if a view is showing completely.
+     * @param view the view.
+     * @return true if it is, or false.
+     */
+    public static boolean isCover(View view){
+        boolean cover;
+        Rect rect = new Rect();
+        cover = view.getGlobalVisibleRect(rect);
+        if (cover){
+            if (rect.width() >= view.getMeasuredWidth() && rect.height() >= view.getMeasuredHeight()){
+                return !cover;
+            }
+        }
+        return true;
     }
 
     /**
